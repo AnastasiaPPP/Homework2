@@ -1,30 +1,57 @@
 ﻿using static System.Console;
-// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
-// Например, на выходе получается вот такой массив:
-// 01 02 03 04
-// 12 13 14 05
-// 11 16 15 06
-// 10 09 08 07
 
-int[,] cube = new int[4, 4];
-int count = 1;
-for (int i = 0; i < cube.GetLength(0); i++)
+int[,] matrix = new int[4, 4];
+
+PrintMatrix(MakeSpiral(matrix));
+
+
+int[,] MakeSpiral(int[,] cube)
 {
-   for (int j = 0; j < cube.GetLength(1); j++)
-   {
-    if (j<cube.GetLength(1))
+    int n = 4;
+    int start = 1;
+    for (int del = 0; del < n - 2; del++)
     {
-        cube[i , j] = count;
-        count ++;
-    }
-    else 
-    {
-        i++;
-        cube[i, j] = count;
-        count++;
-    }
-     
 
-   }
-    
+        for (int i = 0 + del; i < n - del; i++)
+        {
+            cube[0 + del, i] = start;
+            start++;
+        }
+        start--;
+        for (int i = 0 + del; i < n - del; i++)
+        {
+            cube[i, 3 - del] = start;
+            start++;
+        }
+        start--;
+        for (int i = n - 1 - del; i >= 0 + del; i--)
+        {
+            cube[3 - del, i] = start;
+            start++;
+        }
+        start--;
+        for (int i = n - 1 - del; i >= 1 + del; i--)
+        {
+            cube[i, 0 + del] = start;
+            start++;
+        }
+    }
+    return cube;
+}
+
+
+
+
+
+void PrintMatrix(int[,] matr)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (matr[i, j] < 10) Write($"0{matr[i, j]} ");
+            else Write($"{matr[i, j]} ");
+        }
+        WriteLine();
+    }
 }
