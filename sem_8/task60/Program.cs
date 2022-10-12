@@ -1,28 +1,33 @@
 ﻿using static System.Console;
+using System.Linq;
 
-PrintThreeDMatrix(GetThreeDMatrix());
+int[] array = GetUniqueNumsArray();
+PrintThreeDMatrix(GetThreeDMatrix(array));
 
 
-int[,,] GetThreeDMatrix()
+int[,,] GetThreeDMatrix(int[] arr)
 {
-    Random rnd = new Random();
+    int c = 0;
     int[,,] matrix = new int[2, 2, 2];
-    int[] nums = new int[6];
-    int num = 0;
+    
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
             for (int k = 0; k < matrix.GetLength(2); k++)
             {
-                num = rnd.Next(10,100);
-                if(nums.Contains(num)) k--;
-                else matrix[i, j, k] = num;
+                matrix[i,j,k] = arr[c];
+                c++;
+                }     
+                }
+                
+
             }
-        }
-    }
+        
+    
     return matrix;
 }
+
 
 void PrintThreeDMatrix(int[,,] matr)
 {
@@ -38,4 +43,23 @@ void PrintThreeDMatrix(int[,,] matr)
         }
         
     }
+}
+
+
+int[] GetUniqueNumsArray()
+{
+    int[] arr = new int[8];
+    int num = 0;
+    Random rnd = new Random();
+    for (int i = 0; i < arr.Length; i++)
+    {
+        num = rnd.Next(10, 100);
+        if(arr.Contains(num)) 
+        {
+            i--; 
+            continue;
+        }
+        arr[i] = num;
+        }
+    return arr;
 }
